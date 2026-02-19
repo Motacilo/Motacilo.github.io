@@ -1,31 +1,151 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <title>プライバシーポリシー - motacilo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライバシーポリシー - Motacilo</title>
+    <meta name="description" content="Motaciloのプライバシーポリシーについて">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; }
-        h1 { border-bottom: 2px solid #ccc; }
+        .privacy-page {
+            padding-top: 120px;
+            padding-bottom: 80px;
+            min-height: 100vh;
+        }
+
+        .privacy-content {
+            max-width: 720px;
+            margin: 0 auto;
+            background: var(--color-surface);
+            border-radius: var(--border-radius-lg);
+            border: var(--border-light);
+            padding: 48px 40px;
+        }
+
+        .privacy-content h1 {
+            font-size: 1.8rem;
+            margin-bottom: 32px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .privacy-content h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            color: var(--color-text);
+        }
+
+        .privacy-content p,
+        .privacy-content ul {
+            font-size: 0.92rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .privacy-content ul {
+            padding-left: 24px;
+        }
+
+        .privacy-content li {
+            margin-bottom: 6px;
+        }
+
+        .privacy-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            transition: var(--transition-fast);
+        }
+
+        .privacy-back:hover {
+            transform: translateX(-4px);
+        }
+
+        @media (max-width: 768px) {
+            .privacy-content {
+                padding: 32px 24px;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <h1>プライバシーポリシー</h1>
-    <p>motacilo（以下、「当方」といいます。）は、提供するスマートフォン用アプリケーション（以下、「本アプリ」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシーを定めます。</p>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="bird-logo.png" alt="Motacilo" class="nav-logo-img">
+                <span class="nav-logo-text">Motacilo</span>
+            </a>
+        </div>
+    </nav>
 
-    <h2>1. 収集する情報と利用目的</h2>
-    <p>本アプリでは、広告配信や利用状況解析のために以下の第三者によるツールを使用する場合があります。これらのツールは自動的に特定の情報（広告識別子、端末情報など）を収集することがありますが、個人を特定する情報は含みません。</p>
-    <ul>
-        <li>Google AdMob（広告配信）</li>
-        <li>Google Analytics for Firebase（利用状況分析）</li>
-    </ul>
+    <main class="privacy-page">
+        <div class="container">
+            <div class="privacy-content">
+                <a href="index.html" class="privacy-back">← トップページへ戻る</a>
+                <h1>プライバシーポリシー</h1>
 
-    <h2>2. 情報の第三者提供</h2>
-    <p>当方は、法令に基づき開示することが必要である場合を除き、ユーザーの同意なく個人情報を第三者に提供することはありません。</p>
+                <h2>はじめに</h2>
+                <p>Motacilo（以下「当団体」）は、ユーザーのプライバシーを尊重し、個人情報の保護に努めます。本プライバシーポリシーは、当団体が提供するアプリケーションおよびウェブサイトにおける個人情報の取り扱いについて定めるものです。
+                </p>
 
-    <h2>3. お問い合わせ先</h2>
-    <p>本ポリシーに関するお問い合わせは、以下のメールアドレスまでお願いいたします。</p>
-    <p>メールアドレス： motaciloblanka@gmail.com</p>
+                <h2>収集する情報</h2>
+                <p>当団体のアプリケーションおよびウェブサイトでは、以下の情報を収集する場合があります：</p>
+                <ul>
+                    <li>アプリの利用状況に関する匿名の分析データ</li>
+                    <li>お問い合わせ時にご提供いただく情報</li>
+                </ul>
 
-    <p align="right">制定日：2026年1月25日</p>
+                <h2>情報の利用目的</h2>
+                <p>収集した情報は、以下の目的で利用します：</p>
+                <ul>
+                    <li>アプリケーションの改善および機能向上</li>
+                    <li>ユーザーサポートの提供</li>
+                    <li>サービスの品質向上</li>
+                </ul>
+
+                <h2>第三者への提供</h2>
+                <p>当団体は、法令に基づく場合を除き、ユーザーの個人情報を第三者に提供することはありません。</p>
+
+                <h2>お問い合わせ</h2>
+                <p>本プライバシーポリシーに関するお問い合わせは、各アプリ内のお問い合わせ機能またはSNSからご連絡ください。</p>
+
+                <h2>改定について</h2>
+                <p>本プライバシーポリシーは、必要に応じて改定することがあります。重要な変更がある場合は、当ウェブサイトにてお知らせします。</p>
+
+                <p style="margin-top: 28px; font-size: 0.85rem; color: var(--color-text-muted);">最終更新日: 2025年1月1日</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="logo.png" alt="Motacilo" class="footer-logo-img">
+                    <span>Motacilo</span>
+                </div>
+                <p class="footer-copy">&copy; 2025 Motacilo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
+
 </html>
