@@ -102,7 +102,10 @@ function initSmoothScroll() {
    YouTube Latest Videos
    ======================== */
 const YOUTUBE_CHANNEL_HANDLE = '@motaciloBlanka';
+const YOUTUBE_CHANNEL_ID = 'UCqLbJ9kT3fkT4WhVUYZMUjQ';
 const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/' + YOUTUBE_CHANNEL_HANDLE;
+const YOUTUBE_RSS_URL =
+  `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
 const MAX_VIDEOS = 6;
 
 async function loadLatestVideos() {
@@ -110,78 +113,93 @@ async function loadLatestVideos() {
   if (!container) return;
 
   try {
-    // Try fetching via YouTube RSS feed through a CORS proxy
-    const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=`;
-
-    // First, try to resolve the channel ID from the page
-    // We'll use multiple CORS proxy options for reliability
-    const proxyUrls = [
-      `https://api.allorigins.win/raw?url=${encodeURIComponent(YOUTUBE_CHANNEL_URL)}`,
-    ];
-
-    let channelId = null;
-
-    for (const proxyUrl of proxyUrls) {
-      try {
-        const response = await fetch(proxyUrl);
-        if (response.ok) {
-          const html = await response.text();
-          // Extract channel ID from the page HTML
-          const match = html.match(/channel_id=([A-Za-z0-9_-]+)/);
-          if (match) {
-            channelId = match[1];
-            break;
-          }
-          // Try another pattern
-          const match2 = html.match(/"channelId":"([A-Za-z0-9_-]+)"/);
-          if (match2) {
-            channelId = match2[1];
-            break;
-          }
-        }
-      } catch (e) {
-        continue;
-      }
+    let videos = await fetchVideosViaRss2Json();
+    if (!videos.length) {
+      videos = await fetchVideosViaProxy();
     }
 
-    if (channelId) {
-      // Fetch the RSS feed
-      const feedUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl + channelId)}`;
-      const feedResponse = await fetch(feedUrl);
-
-      if (feedResponse.ok) {
-        const feedText = await feedResponse.text();
-        const videos = parseYouTubeRSS(feedText);
-
-        if (videos.length > 0) {
-          renderVideos(container, videos.slice(0, MAX_VIDEOS));
-          return;
-        }
-      }
+    if (videos.length > 0) {
+      renderVideos(container, videos.slice(0, MAX_VIDEOS));
+      return;
     }
 
-    // If all else fails, show fallback
-    console.warn('YouTube feed fetch failed or yieled no results.');
+    console.warn('YouTube feed fetch failed or yielded no results.');
     renderFallback(container, true);
-
   } catch (error) {
     console.error('Failed to load videos:', error);
     renderFallback(container, true);
   }
 }
 
+async function fetchVideosViaRss2Json() {
+  try {
+    const apiUrl =
+      `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(YOUTUBE_RSS_URL)}`;
+    const response = await fetch(apiUrl);
+    if (!response.ok) return [];
+
+    const data = await response.json();
+    if (data.status !== 'ok' || !Array.isArray(data.items)) return [];
+
+    return data.items
+      .map(item => {
+        const videoId = extractVideoId(item.guid || item.link || '');
+        if (!videoId || !item.title) return null;
+        return {
+          id: videoId,
+          title: item.title,
+          thumbnail: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
+          url: `https://www.youtube.com/watch?v=${videoId}`,
+          date: item.pubDate ? formatDate(item.pubDate) : ''
+        };
+      })
+      .filter(Boolean);
+  } catch (e) {
+    console.warn('rss2json fetch failed:', e);
+    return [];
+  }
+}
+
+async function fetchVideosViaProxy() {
+  try {
+    const feedUrl =
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(YOUTUBE_RSS_URL)}`;
+    const response = await fetch(feedUrl);
+    if (!response.ok) return [];
+    return parseYouTubeRSS(await response.text());
+  } catch (e) {
+    console.warn('CORS proxy feed fetch failed:', e);
+    return [];
+  }
+}
+
+function extractVideoId(value) {
+  if (!value) return null;
+  const fromGuid = value.match(/yt:video:([A-Za-z0-9_-]+)/);
+  if (fromGuid) return fromGuid[1];
+  const fromUrl = value.match(/[?&]v=([A-Za-z0-9_-]+)/) ||
+    value.match(/youtu\.be\/([A-Za-z0-9_-]+)/) ||
+    value.match(/shorts\/([A-Za-z0-9_-]+)/);
+  return fromUrl ? fromUrl[1] : null;
+}
+
 function parseYouTubeRSS(xmlText) {
   try {
     const parser = new DOMParser();
     const doc = parser.parseFromString(xmlText, 'application/xml');
-    const entries = doc.querySelectorAll('entry');
+    if (doc.querySelector('parsererror')) return [];
+
+    const atomNS = 'http://www.w3.org/2005/Atom';
+    const ytNS = 'http://www.youtube.com/xml/schemas/2015';
+    const entries = Array.from(doc.getElementsByTagNameNS(atomNS, 'entry'));
     const videos = [];
 
     entries.forEach(entry => {
-      const videoId = entry.querySelector('videoId')?.textContent ||
-        entry.querySelector('yt\\:videoId')?.textContent;
-      const title = entry.querySelector('title')?.textContent;
-      const published = entry.querySelector('published')?.textContent;
+      const ytVideoId = entry.getElementsByTagNameNS(ytNS, 'videoId')[0]?.textContent;
+      const atomId = entry.getElementsByTagNameNS(atomNS, 'id')[0]?.textContent || '';
+      const videoId = ytVideoId || extractVideoId(atomId);
+      const title = entry.getElementsByTagNameNS(atomNS, 'title')[0]?.textContent;
+      const published = entry.getElementsByTagNameNS(atomNS, 'published')[0]?.textContent;
 
       if (videoId && title) {
         videos.push({

@@ -4,12 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Motacilo - アプリ開発 & 動画クリエイター</title>
-  <meta name="description" content="Motaciloはシンプルで楽しいアプリの開発と、合成音声実況・プログラミング実況の動画制作を行っています。">
-  <meta property="og:title" content="Motacilo - アプリ開発 & 動画クリエイター">
-  <meta property="og:description" content="シンプルで楽しいアプリの開発と、合成音声実況・プログラミング実況の動画制作を行っています。">
+  <title>Motacilo - 動画投稿 & アプリ開発</title>
+  <meta name="description" content="Motaciloは動画投稿とアプリ開発を行っています。合成音声実況の配信と、シンプルで楽しいアプリづくりに取り組んでいます。">
+  <meta property="og:title" content="Motacilo - 動画投稿 & アプリ開発">
+  <meta property="og:description" content="動画投稿とアプリ開発を行っています。合成音声実況の配信と、シンプルで楽しいアプリづくりに取り組んでいます。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.motacilo.com">
+  <meta property="og:image" content="https://www.motacilo.com/bird-logo.png">
+  <link rel="icon" href="bird-logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -22,7 +24,7 @@
   <!-- Navigation -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
-      <a href="#" class="nav-logo">
+      <a href="#hero" class="nav-logo">
         <img src="bird-logo.png" alt="Motacilo" class="nav-logo-img">
         <span class="nav-logo-text">Motacilo</span>
       </a>
@@ -45,15 +47,14 @@
     <canvas id="particleCanvas"></canvas>
     <div class="hero-content">
       <div class="hero-logos">
-        <img src="bird-logo.png" alt="Motacilo Bird Logo" class="hero-logo hero-logo-bird">
-        <img src="logo.png" alt="Motacilo Logo" class="hero-logo hero-logo-text-mark">
+        <img src="bird-logo.png" alt="Motacilo" class="hero-logo hero-logo-bird">
       </div>
       <h1 class="hero-title">Motacilo</h1>
-      <p class="hero-subtitle">その気になれば何でも作れる時代。</p>
-      <p class="hero-description">シンプルで楽しいアプリの開発と<br>合成音声実況・プログラミング実況の動画制作をしています。</p>
+      <p class="hero-subtitle">つくって、みる。</p>
+      <p class="hero-description">動画投稿とアプリ開発をしています。</p>
       <div class="hero-cta">
-        <a href="#apps" class="btn btn-primary">アプリを見る</a>
-        <a href="#videos" class="btn btn-secondary">動画を見る</a>
+        <a href="#videos" class="btn btn-primary">動画を見る</a>
+        <a href="#apps" class="btn btn-secondary">アプリを見る</a>
       </div>
     </div>
     <div class="hero-scroll">
@@ -69,9 +70,23 @@
       <div class="section-header fade-in">
         <span class="section-label">About</span>
         <h2 class="section-title">Motaciloについて</h2>
+        <p class="section-description">主な活動は、動画投稿とアプリ開発のふたつです。</p>
       </div>
       <div class="about-grid">
         <div class="about-card fade-in" data-delay="100">
+          <div class="about-icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <rect x="4" y="8" width="40" height="28" rx="4" stroke="currentColor" stroke-width="2.5" fill="none" />
+              <polygon points="20,16 20,32 34,24" stroke="currentColor" stroke-width="2.5" fill="none"
+                stroke-linejoin="round" />
+              <path d="M16 42h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+              <path d="M24 36v6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+            </svg>
+          </div>
+          <h3>動画投稿</h3>
+          <p>合成音声を使ったゲーム実況や、プログラミング・アプリ開発の様子をYouTubeで発信しています。</p>
+        </div>
+        <div class="about-card fade-in" data-delay="200">
           <div class="about-icon">
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
               <rect x="4" y="8" width="40" height="28" rx="4" stroke="currentColor" stroke-width="2.5" fill="none" />
@@ -82,20 +97,7 @@
             </svg>
           </div>
           <h3>アプリ開発</h3>
-          <p>シンプルで使いやすく、日常がちょっと楽しくなるアプリを目指しています。誰でも気軽に使えるものを作っていきます！</p>
-        </div>
-        <div class="about-card fade-in" data-delay="200">
-          <div class="about-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="8" width="40" height="28" rx="4" stroke="currentColor" stroke-width="2.5" fill="none" />
-              <polygon points="20,16 20,32 34,24" stroke="currentColor" stroke-width="2.5" fill="none"
-                stroke-linejoin="round" />
-              <path d="M16 42h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-              <path d="M24 36v6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-            </svg>
-          </div>
-          <h3>動画制作</h3>
-          <p>合成音声を使ったゲーム実況やプログラミング実況を配信しています。楽しさはもちろん、たまに学びをお届けできるようなコンテンツを目指します！</p>
+          <p>シンプルで使いやすく、日常がちょっと楽しくなるアプリを目指して開発しています。</p>
         </div>
       </div>
     </div>
@@ -107,10 +109,23 @@
       <div class="section-header fade-in">
         <span class="section-label">Apps</span>
         <h2 class="section-title">アプリ</h2>
-        <p class="section-description">シンプルで楽しいアプリを開発しています。<br>新しいアプリを随時リリース予定です！</p>
+        <p class="section-description">公開中のアプリと、これから届ける予定のアプリです。</p>
       </div>
       <div class="apps-grid">
-        <div class="app-card fade-in" data-delay="100">
+        <a href="https://play.google.com/store/apps/details?id=com.motacilo.achievementunlocker"
+          class="app-card fade-in" data-delay="100" target="_blank" rel="noopener">
+          <div class="app-card-inner">
+            <div class="app-icon-placeholder">
+              <img
+                src="https://play-lh.googleusercontent.com/eqlTgzxAvmn-Hdr-iQLj00DwZkwb9C2U_OhETA0t_ciAVkGTiUao0BtHWzihpzZ1F66JBv0UJqr0n4oA49PGsQ"
+                alt="人生のやりこみ要素" class="app-icon-img" width="80" height="80">
+            </div>
+            <h3>人生のやりこみ要素</h3>
+            <p>人生の実績をチェックリスト感覚で記録・達成。日常や旅、運動から勉強まで、「できた！」を集めて楽しめます。</p>
+            <span class="app-badge">Google Play</span>
+          </div>
+        </a>
+        <div class="app-card app-card-soon fade-in" data-delay="200">
           <div class="app-card-inner">
             <div class="app-icon-placeholder">
               <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
@@ -127,10 +142,9 @@
             </div>
             <h3>Coming Soon</h3>
             <p>新しいアプリを準備中です。<br>お楽しみに！</p>
-            <span class="app-badge">準備中</span>
+            <span class="app-badge app-badge-muted">準備中</span>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -141,7 +155,7 @@
       <div class="section-header fade-in">
         <span class="section-label">Videos</span>
         <h2 class="section-title">動画コンテンツ</h2>
-        <p class="section-description">合成音声を使ったゲーム実況やプログラミング実況を配信しています。</p>
+        <p class="section-description">YouTubeで配信している主なシリーズです。</p>
       </div>
       <div class="videos-grid">
         <div class="video-category fade-in" data-delay="100">
@@ -155,10 +169,10 @@
               <circle cx="50" cy="48" r="2.5" fill="currentColor" />
             </svg>
           </div>
-          <h3>🎮 ゲーム実況</h3>
-          <p>合成音声でいろいろなゲームを実況！リアクションや攻略を交えてお届けします。</p>
-          <a href="https://www.youtube.com/@motaciloBlanka/videos" class="video-link" target="_blank"
-            rel="noopener">動画を見に行く →</a>
+          <h3>ゲーム関連</h3>
+          <p>主に合成音声を使ったゲーム実況をします。変わったルールでプレイするのが好きです。</p>
+          <a href="https://www.youtube.com/playlist?list=PL1Ieq1a8Wc7zcD7ouMbMYmk46sUWhp-SJ" class="video-link"
+            target="_blank" rel="noopener">プレイリストを見る →</a>
         </div>
         <div class="video-category fade-in" data-delay="200">
           <div class="video-category-visual code-visual">
@@ -175,16 +189,16 @@
               <path d="M44 34l-8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
             </svg>
           </div>
-          <h3>💻 プログラミング実況</h3>
-          <p>コードを書きながら解説！初心者の方にも分かりやすく、一緒に学べるコンテンツを目指しています。</p>
-          <a href="https://www.youtube.com/@motaciloBlanka/videos" class="video-link" target="_blank"
-            rel="noopener">動画を見に行く →</a>
+          <h3>プログラミング関連</h3>
+          <p>作ったアプリの紹介や、AIを活用した開発の様子を動画にします。「自分も作ってみたい！」と思えるようなコンテンツを目指します。</p>
+          <a href="https://www.youtube.com/@motaciloBlanka/search?query=%E3%82%A2%E3%83%97%E3%83%AA" class="video-link"
+            target="_blank" rel="noopener">関連動画を見る →</a>
         </div>
       </div>
 
       <!-- Latest Videos from YouTube -->
       <div class="latest-videos fade-in" data-delay="300">
-        <h3 class="latest-videos-title">📺 最新の動画</h3>
+        <h3 class="latest-videos-title">最新の動画</h3>
         <div class="latest-videos-grid" id="latestVideos">
           <div class="latest-videos-loading">
             <div class="loading-spinner"></div>
@@ -206,7 +220,7 @@
       <div class="section-header fade-in">
         <span class="section-label">Contact</span>
         <h2 class="section-title">つながる</h2>
-        <p class="section-description">SNSやプラットフォームでフォローしてください！</p>
+        <p class="section-description">SNSやプラットフォームでフォローしてください。</p>
       </div>
       <div class="contact-links fade-in" data-delay="100">
         <a href="https://www.youtube.com/@motaciloBlanka" class="contact-card" aria-label="YouTube" target="_blank"
@@ -238,7 +252,8 @@
           </div>
           <span>note</span>
         </a>
-        <a href="https://play.google.com/store/apps/dev?id=4719175421261655003&hl=ja" class="contact-card" aria-label="Google Play" target="_blank" rel="noopener">
+        <a href="https://play.google.com/store/apps/details?id=com.motacilo.achievementunlocker" class="contact-card"
+          aria-label="Google Play" target="_blank" rel="noopener">
           <div class="contact-icon play-icon">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
               <path d="M8 4l16 12L8 28V4z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round" />
@@ -261,7 +276,7 @@
         <div class="footer-links">
           <a href="privacy.html">プライバシーポリシー</a>
         </div>
-        <p class="footer-copy">&copy; 2025 Motacilo. All rights reserved.</p>
+        <p class="footer-copy">&copy; 2026 Motacilo. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -269,6 +284,4 @@
   <script src="script.js"></script>
 </body>
 
-
 </html>
-
