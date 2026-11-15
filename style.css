@@ -518,12 +518,44 @@ img {
 /* ===========================
    Apps
    =========================== */
-.apps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 28px;
+.apps-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
   max-width: 900px;
   margin: 0 auto;
+}
+
+.apps-group-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.apps-group-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.apps-group-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.apps-grid-single {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: calc((100% - 28px) / 2);
 }
 
 .app-card {
@@ -1020,8 +1052,10 @@ a.app-card {
     align-items: center;
   }
 
-  .apps-grid {
+  .apps-grid,
+  .apps-grid-single {
     grid-template-columns: 1fr;
+    max-width: none;
   }
 
   .videos-grid {
