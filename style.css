@@ -577,18 +577,23 @@ img {
 }
 
 .app-icon-placeholder {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 20px;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.app-icon-placeholder svg {
+  width: 56px;
+  height: 56px;
+}
+
 .app-icon-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 18px;
+  width: 56px;
+  height: 56px;
+  border-radius: 13px;
   object-fit: cover;
 }
 
