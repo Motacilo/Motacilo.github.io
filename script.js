@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initMobileMenu();
+  initAppCarousels();
   initScrollAnimations();
   initParticles();
   initSmoothScroll();
@@ -76,6 +77,143 @@ function initScrollAnimations() {
   });
 
   elements.forEach(el => observer.observe(el));
+}
+
+/* ========================
+   App card rows: 2.5 visible, one card per arrow
+   ======================== */
+function initAppCarousels() {
+  document.querySelectorAll('.apps-grid').forEach(setupAppCarousel);
+}
+
+function setupAppCarousel(grid) {
+  const cards = [...grid.children];
+  if (!cards.length) return;
+
+  const scroller = document.createElement('div');
+  scroller.className = 'apps-scroller';
+  grid.parentNode.insertBefore(scroller, grid);
+  scroller.appendChild(grid);
+
+  const prev = makeAppArrow('prev');
+  const next = makeAppArrow('next');
+  scroller.appendChild(prev);
+  scroller.appendChild(next);
+
+  let suppressSnap = false;
+
+  function gap() {
+    const styles = getComputedStyle(grid);
+    return parseFloat(styles.columnGap || styles.gap) || 0;
+  }
+
+  function cardWidth() {
+    return cards[0].getBoundingClientRect().width;
+  }
+
+  function maxScroll() {
+    return Math.max(0, grid.scrollWidth - grid.clientWidth);
+  }
+
+  function stops() {
+    const step = cardWidth() + gap();
+    const max = maxScroll();
+    const points = [0];
+    if (max > 2 && step > 0) {
+      let x = step;
+      while (x < max - 2) {
+        points.push(x);
+        x += step;
+      }
+      points.push(max);
+    }
+    return points;
+  }
+
+  function updateArrows() {
+    const max = maxScroll();
+    const left = grid.scrollLeft;
+    const canPrev = max > 2 && left > 2;
+    const canNext = max > 2 && left < max - 2;
+    prev.hidden = !canPrev;
+    next.hidden = !canNext;
+    scroller.classList.toggle('fade-left', canPrev);
+    scroller.classList.toggle('fade-right', canNext);
+  }
+
+  function go(dir) {
+    const points = stops();
+    const left = grid.scrollLeft;
+    let target = dir > 0 ? points[points.length - 1] : 0;
+    if (dir > 0) {
+      const found = points.find(point => point > left + 2);
+      if (found !== undefined) target = found;
+    } else {
+      for (let i = points.length - 1; i >= 0; i--) {
+        if (points[i] < left - 2) {
+          target = points[i];
+          break;
+        }
+      }
+    }
+    suppressSnap = true;
+    grid.scrollTo({ left: target, behavior: 'smooth' });
+    clearTimeout(grid._release);
+    grid._release = setTimeout(() => {
+      suppressSnap = false;
+      updateArrows();
+    }, 700);
+  }
+
+  function snap() {
+    if (suppressSnap) return;
+    const points = stops();
+    const left = grid.scrollLeft;
+    let nearest = points[0];
+    let best = Infinity;
+    points.forEach(point => {
+      const distance = Math.abs(point - left);
+      if (distance < best) {
+        best = distance;
+        nearest = point;
+      }
+    });
+    if (best > 2) {
+      suppressSnap = true;
+      grid.scrollTo({ left: nearest, behavior: 'smooth' });
+      setTimeout(() => {
+        suppressSnap = false;
+        updateArrows();
+      }, 400);
+    }
+  }
+
+  prev.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+
+  grid.addEventListener('scroll', () => {
+    updateArrows();
+    if (suppressSnap) return;
+    clearTimeout(grid._snap);
+    grid._snap = setTimeout(snap, 90);
+  }, { passive: true });
+  grid.addEventListener('scrollend', () => {
+    suppressSnap = false;
+    updateArrows();
+  });
+  window.addEventListener('resize', updateArrows);
+  updateArrows();
+}
+
+function makeAppArrow(dir) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'apps-arrow apps-arrow-' + dir;
+  button.setAttribute('aria-label', dir === 'prev' ? '前のアプリ' : '次のアプリ');
+  button.innerHTML = dir === 'prev'
+    ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  return button;
 }
 
 /* ========================
